@@ -59,16 +59,37 @@ jobs:
         name: Deploy to Vercel
         runs-on: ubuntu-latest
         needs: frontend
+        permissions:
+          contents: read
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
+          - name: Checkout
+            uses: actions/checkout@v4
 
-            - name: Install Vercel CLI
-              run: npm install -g vercel
+          - name: Setup Node
+            uses: actions/setup-node@v4
+            with:
+              node-version: '20'
 
-            - name: Deploy
-              env:
-                VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-                VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-                VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-              run: vercel --prod --yes
+          - name: Install Vercel CLI
+            run: npm i -g vercel@47
+
+          # Optional but helpful: verify token works
+          - name: Verify Vercel auth
+            run: vercel whoami --token ${{ secrets.VERCEL_TOKEN }}
+
+          # Create .vercel/ and pull env vars for the right project/org
+          - name: Link project & pull env (prod)
+            env:
+              VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+              VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+              VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+            run: |
+              vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
+
+          # Build + deploy (if your project needs build, let Vercel handle it)
+          - name: Deploy to Vercel (Production)
+            env:
+              VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+            run: |
+              # Add --scope <team-slug> if deploying under a team
+              vercel --prod --yes --token "$VERCEL_TOKEN"
