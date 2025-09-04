@@ -15,8 +15,8 @@ app.use(express_1.default.json());
 app.use("/api/orders", order_routes_1.default);
 const PORT = process.env.PORT || 5100;
 (0, db_1.dbConnect)();
-// app.listen(PORT, () => {
-//     console.log(`Server is running on PORT ${PORT}`);
-// });
-exports.default = app;
+app.listen(PORT, () => {
+    console.log(`Server is running on PORT ${PORT}`);
+});
+//export default app;
 //# sourceMappingURL=server.js.map
