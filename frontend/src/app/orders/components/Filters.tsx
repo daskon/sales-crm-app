@@ -1,8 +1,16 @@
 import { Input } from "@/components/ui/input";
 
+interface IntFilters {
+    category?: string;
+    source?: string;
+    location?: string;
+    dateFrom?: string;
+    dateTo?: string;
+}
+
 interface FiltersProps {
-    filters: any;
-    setFilters: (filters: any) => void;
+    filters: IntFilters;
+    setFilters: (filters: IntFilters) => void;
 }
 
 export default function Filters ({ filters, setFilters}: FiltersProps) {
