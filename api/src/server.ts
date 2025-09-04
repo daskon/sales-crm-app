@@ -16,6 +16,8 @@ app.use("/api/orders", OrderRoutes);
 const PORT = process.env.PORT || 5100;
 dbConnect();
 
-app.listen(PORT, () => {
-    console.log(`Server is running on PORT ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server is running on PORT ${PORT}`);
+// });
+
+export default app;
