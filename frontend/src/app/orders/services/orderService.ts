@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export interface Order {
-    id: string;
+    _id: string;
     customer: string;
     category: string;
     date: string;

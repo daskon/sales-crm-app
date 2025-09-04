@@ -29,7 +29,7 @@ export default function OrdersTable({orders, loading}: OrderTblProps) {
                         </tr>
                     ) : (
                         orders.map((order, idx) => (
-                            <tr key={order.id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-100"}>
+                            <tr key={order._id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-100"}>
                                 <td className="px-4 py-2">{order._id}</td>
                                 <td className="px-4 py-2">{order.customer}</td>
                                 <td className="px-4 py-2">{order.category}</td>
