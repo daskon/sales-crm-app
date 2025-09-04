@@ -73,12 +73,10 @@ jobs:
           - name: Install Vercel CLI
             run: npm i -g vercel@47
 
-          # Optional but helpful: verify token works
-          - name: Verify Vercel auth
+          - name: Verify Vercel Token
             run: vercel whoami --token ${{ secrets.VERCEL_TOKEN }}
 
-          # Create .vercel/ and pull env vars for the right project/org
-          - name: Link project & pull env (prod)
+          - name: Vercel Link with GitHub using env vars
             env:
               VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
               VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -86,10 +84,8 @@ jobs:
             run: |
               vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
 
-          # Build + deploy (if your project needs build, let Vercel handle it)
           - name: Deploy to Vercel (Production)
             env:
               VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
             run: |
-              # Add --scope <team-slug> if deploying under a team
               vercel --prod --yes --token "$VERCEL_TOKEN"
