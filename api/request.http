@@ -1,0 +1,10 @@
+POST http://localhost:5100/api/orders
+Content-Type: application/json
+
+{
+    "customer": "Anna",
+    "category": "Electronics",
+    "date": "2022-04-04",
+    "source": "Online",
+    "geo": "Canada"
+}
