@@ -18,5 +18,5 @@ const PORT = process.env.PORT || 5100;
 app.listen(PORT, () => {
     console.log(`Server is running on PORT ${PORT}`);
 });
-//export default app;
+exports.default = app;
 //# sourceMappingURL=server.js.map
