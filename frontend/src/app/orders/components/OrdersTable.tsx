@@ -15,7 +15,7 @@ export default function OrdersTable({orders, loading}: OrderTblProps) {
                     <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Customer</th>
                     <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Category</th>
                     <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Source</th>
-                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">GEO</th>
+                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Location</th>
                     <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Date</th>
                 </thead>
                 <tbody className="divided-y divide-gray-200">
@@ -30,12 +30,12 @@ export default function OrdersTable({orders, loading}: OrderTblProps) {
                     ) : (
                         orders.map((order, idx) => (
                             <tr key={order.id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-100"}>
-                                <td className="px-4 py-2">{order.id}</td>
+                                <td className="px-4 py-2">{order._id}</td>
                                 <td className="px-4 py-2">{order.customer}</td>
                                 <td className="px-4 py-2">{order.category}</td>
                                 <td className="px-4 py-2">{order.source}</td>
                                 <td className="px-4 py-2">{order.geo}</td>
-                                <td className="px-4 py-2">{order.date}</td>
+                                <td className="px-4 py-2">{new Date(order.date).toISOString().split("T")[0]}</td>
                             </tr>
                         ))
                     )}
