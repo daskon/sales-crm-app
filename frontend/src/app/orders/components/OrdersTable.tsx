@@ -8,34 +8,34 @@ interface OrderTblProps {
 
 export default function OrdersTable({orders, loading}: OrderTblProps) {
     return (
-        <div className="overflow-auto">
-            <Table>
-                <thead>
-                    <th>ID</th>
-                    <th>Customer</th>
-                    <th>Category</th>
-                    <th>Source</th>
-                    <th>GEO</th>
-                    <th>Date</th>
+        <div className="overflow-auto border rounded-lg shadow-sm">
+            <Table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-200">
+                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">ID</th>
+                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Customer</th>
+                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Category</th>
+                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Source</th>
+                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">GEO</th>
+                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Date</th>
                 </thead>
-                <tbody>
+                <tbody className="divided-y divide-gray-200">
                     {loading ? (
                         <tr>
-                            <td colSpan={6} className="text-center p-4">Loading...</td>
+                            <td colSpan={6} className="text-center p-4 text-gray-500">Loading...</td>
                         </tr>
                     ) : orders.length === 0 ? (
                         <tr>
-                            <td colSpan={6} className="text-center p-4">No orders found</td>
+                            <td colSpan={6} className="text-center p-4 text-gray-500">No orders found</td>
                         </tr>
                     ) : (
-                        orders.map((order) => (
-                            <tr key={order.id}>
-                                <td>{order.id}</td>
-                                <td>{order.customer}</td>
-                                <td>{order.category}</td>
-                                <td>{order.source}</td>
-                                <td>{order.geo}</td>
-                                <td>{order.date}</td>
+                        orders.map((order, idx) => (
+                            <tr key={order.id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-100"}>
+                                <td className="px-4 py-2">{order.id}</td>
+                                <td className="px-4 py-2">{order.customer}</td>
+                                <td className="px-4 py-2">{order.category}</td>
+                                <td className="px-4 py-2">{order.source}</td>
+                                <td className="px-4 py-2">{order.geo}</td>
+                                <td className="px-4 py-2">{order.date}</td>
                             </tr>
                         ))
                     )}

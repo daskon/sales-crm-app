@@ -35,12 +35,6 @@ export default function Filters ({ filters, setFilters}: FiltersProps) {
             />
 
             <Input
-                placeholder="Category"
-                value={filters.category || ""}
-                onChange={(e) => setFilters({ ...filters, category: e.target.value})}
-            />
-
-            <Input
                 type="date"
                 placeholder="From"
                 value={filters.dateFrom || ""}
