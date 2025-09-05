@@ -34,6 +34,9 @@ export interface FetchOrdersFilters {
 export async function fetchOrders(
     filters: FetchOrdersFilters = {}
 ): Promise<OrderResponse> {
-    const { data } = await axios.get(API_URL!, {params: filters});
+    const { data } = await axios.get(API_URL!, {
+        params: filters,
+        withCredentials: true
+    });
     return data;
 }

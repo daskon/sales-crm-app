@@ -1,14 +1,29 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginForm from "./login/components/LoginForm";
+import { me } from "./login/services/authService";
 
 export default function Home() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
   };
+
+  useEffect(() => {
+    async function checkAuth() {
+      try{
+        const user = await me();
+        if(user) setIsLoggedIn(true);
+      } catch {
+        setIsLoggedIn(false);
+      }
+    }
+    checkAuth();
+  }, []);
+
+  if(isLoggedIn === null) return <div>Loading...</div>;
 
   if (!isLoggedIn) {
     return <LoginForm onLoginSuccess={handleLoginSuccess} />;

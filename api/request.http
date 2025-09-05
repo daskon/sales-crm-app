@@ -2,9 +2,28 @@ POST http://localhost:5100/api/orders
 Content-Type: application/json
 
 {
-    "customer": "Anna",
-    "category": "Electronics",
-    "date": "2022-04-04",
-    "source": "Online",
-    "geo": "Canada"
+    "customer": "James",
+    "category": "Home",
+    "date": "2021-07-07",
+    "source": "Shop",
+    "geo": "USA"
+}
+
+###
+POST http://localhost:5100/api/auth/create
+Content-Type: application/json
+
+{
+    "username": "crmuser",
+    "password": "crm123"
+}
+
+###
+
+POST http://localhost:5100/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "crmadmin",
+    "password": ""
 }

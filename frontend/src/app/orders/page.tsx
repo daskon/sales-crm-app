@@ -6,14 +6,32 @@ import OrdersTable from "./components/OrdersTable";
 import { CSVLink } from "react-csv";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { me, Logout } from "../login/services/authService";
 
 export default function OrderPage() {
     const [filters, setFilters] = useState({});
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(false);
     const [pagination, setPagination] = useState({ total: 0, page: 1, limit: 10, totalPages: 1});
+    const [authChecked, setAuthChecked] = useState(false);
+
+    const router = useRouter();
+
+    useEffect(() => {
+        async function checkAuth() {
+        try {
+            const user = await me();
+            if(user) setAuthChecked(true);
+        } catch {
+            router.push("/");
+        }
+        }
+        checkAuth();
+    }, [router]);
 
     useEffect(()=>{
+        if (!authChecked) return;
         setLoading(true);
         fetchOrders({...filters, page: pagination.page, limit: pagination.limit})
             .then((res) =>{
@@ -21,7 +39,7 @@ export default function OrderPage() {
                 setPagination(res.pagination);
             })
             .finally(() => setLoading(false));
-    }, [filters, pagination.page, pagination.limit]);
+    }, [filters, pagination.page, pagination.limit, authChecked]);
 
     const chartData = Object.values(
         orders.reduce((acc, order) => {
@@ -31,15 +49,32 @@ export default function OrderPage() {
         }, {} as Record<string, { category: string; count: number}>)
     );
 
+    if (!authChecked) return <div>Loading...</div>;
+
+    const handleLogout = async () => {
+        try {
+            await Logout();
+            router.push("/");
+        } catch (err: any) {
+            console.error(err.message);
+        }
+    };
+
     return (
         <div className="p-6">
+            <div className="flex justify-end items-center mb-4 cursor-pointer">
+                <Button variant="destructive" onClick={handleLogout} className="cursor-pointer">
+                    Logout
+                </Button>
+            </div>
+
             <h1 className="text-2xl font-bold mb-4">List of Orders</h1>
 
             <Filters filters={filters} setFilters={setFilters} />
 
-            <div className="mb-4">
+            <div className="mb-4 mt-4">
                 <CSVLink data={orders} filename="orders.csv">
-                    <Button>Export CSV</Button>
+                    <Button className="cursor-pointer">Export CSV</Button>
                 </CSVLink>
             </div>
 
@@ -50,6 +85,7 @@ export default function OrderPage() {
                   variant="outline"
                   disabled={pagination.page === 1}
                   onClick={() => setPagination((p) => ({ ...p, page: p.page - 1}))}
+                  className="cursor-pointer"
                 >
                     Previous
                 </Button>
@@ -62,6 +98,7 @@ export default function OrderPage() {
                   variant="outline"
                   disabled={pagination.page === pagination.totalPages}
                   onClick={() => setPagination((p) => ({ ...p, page: p.page + 1}))}
+                  className="cursor-pointer"
                 >
                     Next
                 </Button>
