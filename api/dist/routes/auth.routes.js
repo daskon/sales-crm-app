@@ -26,5 +26,19 @@ router.post("/create", async (req, res) => {
 router.get('/me', auth_middleware_1.authMiddleware, (req, res) => {
     res.json({ user: req.user });
 });
+router.get("/test", async (req, res) => {
+    try {
+        const mongoose = require("mongoose");
+        const dbState = mongoose.connection.readyState; // 0 = disconnected, 1 = connected
+        res.status(200).json({
+            message: "Backend is running!",
+            mongoConnection: dbState === 1 ? "Connected" : "Disconnected",
+            env: process.env.RAILWAY_FRONTEND_URL || "undefined",
+        });
+    }
+    catch (error) {
+        res.status(500).json({ message: "Error checking backend", error });
+    }
+});
 exports.default = router;
 //# sourceMappingURL=auth.routes.js.map
