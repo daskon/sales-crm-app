@@ -9,17 +9,14 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 const app = express();
 
-// Put this BEFORE your routes/middleware
-app.use(cors({
-  origin: (origin, cb) => cb(null, true), // reflect any origin
-  credentials: true,                       // allow cookies/Authorization
-  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
-  // omit allowedHeaders so the package echoes what the browser asks for
-}));
-app.options('*', cors({
-  origin: (origin, cb) => cb(null, true),
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
