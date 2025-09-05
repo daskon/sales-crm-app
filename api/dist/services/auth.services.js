@@ -15,7 +15,7 @@ class AuthService {
         const valid = await bcryptjs_1.default.compare(password, user.password);
         if (!valid)
             throw new Error("Invalid credtials");
-        const token = jsonwebtoken_1.default.sign({ sub: user.id }, process.env.RAILWAY_JWT_SECRET, {
+        const token = jsonwebtoken_1.default.sign({ sub: user.id }, process.env.JWT_SECRET, {
             expiresIn: "1h",
         });
         return {

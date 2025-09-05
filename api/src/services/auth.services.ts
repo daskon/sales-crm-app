@@ -12,7 +12,7 @@ export class AuthService {
         const valid = await bcrypt.compare(password, user.password);
         if(!valid) throw new Error("Invalid credtials");
 
-        const token = jwt.sign({ sub: user.id }, process.env.RAILWAY_JWT_SECRET!, {
+        const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET!, {
             expiresIn: "1h",
         });
 

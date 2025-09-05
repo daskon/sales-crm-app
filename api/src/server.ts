@@ -6,7 +6,7 @@ import AuthRoutes from "./routes/auth.routes";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 
-if (process.env.RAILWAY_NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== "production") {
   dotenv.config();
 }
 
@@ -40,13 +40,13 @@ app.use("/api/auth", AuthRoutes);
 const PORT = process.env.PORT || 5100;
 
 const dbConnect = async () => {
-  if (!process.env.RAILWAY_MONGO_URI) {
+  if (!process.env.MONGO_URI) {
     console.error("MONGO_URI is not defined!");
     process.exit(1);
   }
 
   try {
-    await mongoose.connect(process.env.RAILWAY_MONGO_URI!);
+    await mongoose.connect(process.env.MONGO_URI!);
     console.log("MongoDB connected");
   } catch (err) {
     console.error("MongoDB connection refused", err);

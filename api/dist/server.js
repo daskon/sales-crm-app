@@ -10,7 +10,7 @@ const order_routes_1 = __importDefault(require("./routes/order.routes"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
-if (process.env.RAILWAY_NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== "production") {
     dotenv_1.default.config();
 }
 const app = (0, express_1.default)();
@@ -38,12 +38,12 @@ app.use("/api/orders", order_routes_1.default);
 app.use("/api/auth", auth_routes_1.default);
 const PORT = process.env.PORT || 5100;
 const dbConnect = async () => {
-    if (!process.env.RAILWAY_MONGO_URI) {
+    if (!process.env.MONGO_URI) {
         console.error("MONGO_URI is not defined!");
         process.exit(1);
     }
     try {
-        await mongoose_1.default.connect(process.env.RAILWAY_MONGO_URI);
+        await mongoose_1.default.connect(process.env.MONGO_URI);
         console.log("MongoDB connected");
     }
     catch (err) {

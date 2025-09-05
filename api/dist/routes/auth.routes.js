@@ -33,7 +33,7 @@ router.get("/test", async (req, res) => {
         res.status(200).json({
             message: "Backend is running!",
             mongoConnection: dbState === 1 ? "Connected" : "Disconnected",
-            env: process.env.RAILWAY_FRONTEND_URL || "undefined",
+            env: process.env.RONTEND_URL || "undefined",
         });
     }
     catch (error) {
