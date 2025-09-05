@@ -2,6 +2,6 @@
   "build": {
     "builder": "NIXPACKS",
     "buildCommand": "cd api && npm install && npm run build",
-    "startCommand": "cd api && npm start"
+    "startCommand": "node api/dist/server.js"
   }
 }
