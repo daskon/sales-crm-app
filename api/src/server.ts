@@ -15,14 +15,13 @@ app.use(express.json());
 app.use(cookieParser());
 
 const allowedOrigins = [
-  "https://sales-crm-app-eta.vercel.app",
-  "http://localhost:3000",
+  process.env.FRONTEND_URL
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // allow server-to-server requests
+      if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) callback(null, true);
       else callback(new Error("Not allowed by CORS"));
     },
