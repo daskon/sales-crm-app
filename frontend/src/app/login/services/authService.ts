@@ -25,7 +25,7 @@ export async function me() {
     try {
         const res = await axios.get(`${API_URL}/me`, { withCredentials: true });
         return res.data.user;
-    } catch (err: any) {
+    } catch {
         throw new Error("Unauthorized");
     }
 }
@@ -34,7 +34,7 @@ export async function Logout() {
     try {
         const res = await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
         return res.data;
-    } catch (err: any) {
-        throw new Error(err?.response?.data?.message || "Logout failed");
+    } catch {
+        throw new Error("Logout failed");
     }
 }
