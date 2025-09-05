@@ -9,6 +9,9 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 const app = express();
 
+app.use(express.json());
+app.use(cookieParser());
+
 // app.use(
 //   cors({
 //     origin: "*",
@@ -26,7 +29,7 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
+      if (!origin) return callback(null, true); // allow server-to-server requests
       if (allowedOrigins.includes(origin)) callback(null, true);
       else callback(new Error("Not allowed by CORS"));
     },
@@ -36,9 +39,6 @@ app.use(
     optionsSuccessStatus: 204,
   })
 );
-
-app.use(express.json());
-app.use(cookieParser());
 
 app.use("/api/orders", OrderRoutes);
 app.use("/api/auth", AuthRoutes);
