@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sales CRM Module
 
-## Getting Started
+A simple **Sales CRM** system with API and CI/CD setup, built with **Next.js**, **Express.js**, and **MongoDB**, deployed to **Vercel**.
 
-First, run the development server:
+**Live Demo:** [https://sales-crm-app-eta.vercel.app/](https://sales-crm-app-eta.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend:** Next.js
+- **Backend:** Express.js
+- **Database:** MongoDB (Mongoose)
+- **UI Library:** shadcn/ui
+- **Charts:** Recharts
+- **CSV Export:** react-csv
+- **Authentication:** JWT (HttpOnly cookie)
+- **CI/CD:** GitHub Actions → Vercel Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ⚡ Features
 
-To learn more about Next.js, take a look at the following resources:
+- JWT HttpOnly token authentication to protect `/orders` route and home page
+- Export table data to CSV using `react-csv`
+- Display order statistics using `recharts`
+- Clean UI with `shadcn/ui`
+- Filters to search and export specific order data
+- CI/CD configured with GitHub workflow: main branch push triggers deployment to Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 👤 Login Details
 
-## Deploy on Vercel
+- **Username:** `crmadmin`
+- **Password:** `crm123`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**After login:**
+1. Click the **View Orders** button.
+2. Use filters to get specific data.
+3. Export filtered data to CSV.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 💡 Design Decisions
+
+- Frontend and API are separated into different folders.
+- Frontend deployed on Vercel; API calls made via Axios from Next.js frontend.
+- Initial table records added using `request.http` package.
+
+---
+
+## 🔌 API Endpoints
+
+### Auth Endpoints
+
+| Method | Endpoint           | Description |
+|--------|------------------|-------------|
+| POST   | `/api/auth/login` | Login with username & password. Returns HttpOnly JWT token. |
+| POST   | `/api/auth/logout`| Logout and clear HttpOnly token. |
+| POST   | `/api/auth/create`| Create new login users with username & password. |
+| GET    | `/api/auth/me`    | Validate user token and return user info if valid. |
+
+### Orders Endpoints
+
+| Method | Endpoint         | Description |
+|--------|----------------|-------------|
+| GET    | `/api/orders`   | Return list of orders in JSON format. |
+| POST   | `/api/orders`   | Create new orders. |
+
+---
+
+## 🚀 Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/daskon/sales-crm-app.git
