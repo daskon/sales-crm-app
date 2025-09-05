@@ -11,5 +11,3 @@ COPY api/ ./
 RUN npm run build
 
 EXPOSE 5100
-
-CMD ["node", "dist/server.js"]
