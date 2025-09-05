@@ -16,6 +16,7 @@ A simple **Sales CRM** system with API and CI/CD setup, built with **Next.js**, 
 - **CSV Export:** react-csv
 - **Authentication:** JWT (HttpOnly cookie)
 - **CI/CD:** GitHub Actions → Vercel Deployment
+- **API:** GitHub Actions → Railway
 
 ---
 
@@ -27,6 +28,7 @@ A simple **Sales CRM** system with API and CI/CD setup, built with **Next.js**, 
 - Clean UI with `shadcn/ui`
 - Filters to search and export specific order data
 - CI/CD configured with GitHub workflow: main branch push triggers deployment to Vercel
+- API routes beign deployed into Railway
 
 ---
 
@@ -47,6 +49,7 @@ A simple **Sales CRM** system with API and CI/CD setup, built with **Next.js**, 
 - Frontend and API are separated into different folders.
 - Frontend deployed on Vercel; API calls made via Axios from Next.js frontend.
 - Initial table records added using `request.http` package.
+- Vercel do not support API deployment ( serveless ) hence deployed to Railway
 
 ---
 
