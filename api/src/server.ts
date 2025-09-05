@@ -33,6 +33,10 @@ app.use(
   })
 );
 
+console.log("✅ NODE_ENV:", process.env.NODE_ENV);
+console.log("✅ Available ENV KEYS:", Object.keys(process.env));
+console.log("✅ MONGO_URI:", process.env.MONGO_URI ? "defined ✅" : "undefined ❌");
+
 app.use("/api/orders", OrderRoutes);
 app.use("/api/auth", AuthRoutes);
 
