@@ -33,12 +33,9 @@ app.use((0, cors_1.default)({
     allowedHeaders: ["Content-Type", "Authorization"],
     optionsSuccessStatus: 204,
 }));
-console.log("✅ NODE_ENV:", process.env.NODE_ENV);
-console.log("✅ Available ENV KEYS:", Object.keys(process.env));
-console.log("✅ MONGO_URI:", process.env.MONGO_URI ? "defined ✅" : "undefined ❌");
 app.use("/api/orders", order_routes_1.default);
 app.use("/api/auth", auth_routes_1.default);
-const PORT = process.env.PORT || 5100;
+const PORT = process.env.PORT || 8080;
 const dbConnect = async () => {
     if (!process.env.MONGO_URI) {
         console.error("MONGO_URI is not defined!");
