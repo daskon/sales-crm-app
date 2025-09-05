@@ -9,24 +9,27 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 const app = express();
 
-const allowedOrigins = [process.env.FRONTEND_URL, "http://localhost:3000"];
+const AllowedOrigins = [
+  'https://sales-crm-app-eta.vercel.app', // your prod web
+  /\.vercel\.app$/,                        // preview deploys
+];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true);
+app.use(cors({
+  origin: (Origin, Callback) => {
+    if (!Origin) return Callback(null, true); // Postman/SSR/etc.
+    const Ok = AllowedOrigins.some(O =>
+      typeof O === 'string' ? O === Origin : O.test(Origin)
+    );
+    return Ok ? Callback(null, true)
+              : Callback(new Error('Not allowed by CORS'), false);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  
+}));
 
-        if (allowedOrigins.indexOf(origin) === -1) {
-          const msg = `CORS does not allow access from the specified Origin.`;
-          return callback(new Error(msg), false);
-        }
-      return callback(null, true);
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// Ensure preflight is answered
+app.options('*', cors());
 
 app.use(express.json());
 app.use(cookieParser());
