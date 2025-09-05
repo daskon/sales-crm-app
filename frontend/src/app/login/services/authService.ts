@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL_AUTH;
 
@@ -13,7 +13,10 @@ export async function userLogin(data:LoginCred) {
             withCredentials: true,
         });
         return res.data;
-    } catch (err: any) {
-        throw err.response?.data?.message || "Login Failed";
+    } catch (err: unknown) {
+        if (err instanceof AxiosError) {
+            throw err.response?.data?.message || "Login Failed";
+        }
+        throw "Login Failed";
     }
 }

@@ -21,7 +21,7 @@ export default function OrderPage() {
                 setPagination(res.pagination);
             })
             .finally(() => setLoading(false));
-    }, [filters, pagination.page]);
+    }, [filters, pagination.page, pagination.limit]);
 
     const chartData = Object.values(
         orders.reduce((acc, order) => {

@@ -22,8 +22,12 @@ export default function LoginForm({onLoginSuccess}: LoginProps) {
         try {
             await userLogin({ username, password });
             onLoginSuccess();
-        } catch (err: any) {
-            setError(err);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError(String(err));
+            }
         } finally {
             setLoading(false);
         }
