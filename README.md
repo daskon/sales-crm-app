@@ -67,11 +67,3 @@ A simple **Sales CRM** system with API and CI/CD setup, built with **Next.js**, 
 |--------|----------------|-------------|
 | GET    | `/api/orders`   | Return list of orders in JSON format. |
 | POST   | `/api/orders`   | Create new orders. |
-
----
-
-## 🚀 Getting Started
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/daskon/sales-crm-app.git
