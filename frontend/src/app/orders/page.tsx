@@ -8,6 +8,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recha
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { me, Logout } from "../login/services/authService";
+import { AxiosError } from "axios";
 
 export default function OrderPage() {
     const [filters, setFilters] = useState({});
@@ -55,8 +56,11 @@ export default function OrderPage() {
         try {
             await Logout();
             router.push("/");
-        } catch (err: any) {
-            console.error(err.message);
+        } catch (err: unknown) {
+            if (err instanceof AxiosError) {
+                throw err.response?.data?.message || "Login Failed";
+            }
+            throw "Login Failed";
         }
     };
 
