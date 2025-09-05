@@ -12,4 +12,4 @@ RUN npm run build
 
 EXPOSE 5100
 
-CMD ["node", "dist/server.js"]
+CMD ["sh", "-c", "echo MONGO_URI=$MONGO_URI && node dist/server.js"]
