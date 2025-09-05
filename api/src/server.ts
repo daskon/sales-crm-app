@@ -6,7 +6,10 @@ import AuthRoutes from "./routes/auth.routes";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config(); 
+}
+
 const app = express();
 
 app.use(express.json());
@@ -41,7 +44,7 @@ const dbConnect = async () => {
     console.error("MONGO_URI is not defined!");
     process.exit(1);
   }
-  
+
   try {
     await mongoose.connect(process.env.MONGO_URI!);
     console.log("MongoDB connected");
