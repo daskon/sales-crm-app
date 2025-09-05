@@ -4,14 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const order_routes_1 = __importDefault(require("./routes/order.routes"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
 if (process.env.NODE_ENV !== "production") {
-    dotenv_1.default.config();
+    require("dotenv").config();
 }
 const app = (0, express_1.default)();
 app.use(express_1.default.json());

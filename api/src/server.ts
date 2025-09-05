@@ -1,5 +1,4 @@
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import OrderRoutes from "./routes/order.routes";
 import AuthRoutes from "./routes/auth.routes";
@@ -7,7 +6,7 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 
 if (process.env.NODE_ENV !== "production") {
-  dotenv.config();
+  require("dotenv").config();
 }
 
 const app = express();
