@@ -24,4 +24,19 @@ router.get('/me', authMiddleware, (req: any, res) =>{
     res.json({user: req.user});
 });
 
+router.get("/test", async (req: Request, res: Response) => {
+    try {
+        const mongoose = require("mongoose");
+        const dbState = mongoose.connection.readyState; // 0 = disconnected, 1 = connected
+
+        res.status(200).json({
+            message: "Backend is running!",
+            mongoConnection: dbState === 1 ? "Connected" : "Disconnected",
+            env: process.env.FRONTEND_URL || "undefined",
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Error checking backend", error });
+    }
+});
+
 export default router;
